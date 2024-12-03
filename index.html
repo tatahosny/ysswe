@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Encryption</title>
+    <style>
+        /* إعدادات الخلفية */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.8), rgba(0, 242, 254, 0.8));
+            background-size: 200% 200%;
+            animation: gradientAnimation 10s infinite ease-in-out;
+            overflow: hidden;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* صورة متحركة مع بلور */
+        .moving-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: url('OIP.PNG') no-repeat center/cover;
+            filter: blur(5px);
+            animation: moveImage 8s infinite ease-in-out;
+        }
+
+        @keyframes moveImage {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-40%, -60%) scale(1.1);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* باقي إعدادات التصميم */
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container h1 {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* عناصر أخرى */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #444;
+            text-align: left;
+        }
+
+        input, select {
+            width: 100%;
+            height: 45px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            background: #f9f9f9;
+            font-size: 16px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        output {
+            display: block;
+            margin-top: 15px;
+            font-size: 16px;
+            color: #444;
+            font-weight: bold;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="moving-image"></div> <!-- إضافة الصورة المتحركة -->
+    <div class="container">
+        <img src="logo.png" alt="University Logo" class="logo">
+        <h1>Text Encryption</h1>
+        <div class="form-group">
+            <label for="inputText">Enter Text:</label>
+            <input type="text" id="inputText" placeholder="Type your text here">
+        </div>
+        <div class="form-group">
+            <label for="encryptionType">Select Encryption Type:</label>
+            <select id="encryptionType" onchange="toggleKeyInput()">
+                <option value="caesar">Caesar Cipher</option>
+                <option value="vigenere">Vigenère Cipher</option>
+                <option value="transposition">Transposition Cipher</option>
+                <option value="playfair">Playfair Cipher</option>
+            </select>
+        </div>
+        <div class="form-group" id="keyInputGroup" style="display: none;">
+            <label id="keyLabel" for="encryptionKey">Enter Key:</label>
+            <input type="text" id="encryptionKey" placeholder="Enter encryption key">
+            <div id="errorMessage" class="error"></div>
+        </div>
+        <div class="form-group">
+            <button onclick="encryptText()">Encrypt</button>
+        </div>
+        <div class="form-group">
+            <label for="outputText">Encrypted Text:</label>
+            <output id="outputText"></output>
+        </div>
+    </div>
+</body>
+</html>
